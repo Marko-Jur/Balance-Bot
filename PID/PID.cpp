@@ -8,10 +8,29 @@ Input Parameters: Angle error from the vertical position
 Output Parameters: None
 */
 
+#include "Arduino.h"
 #include "PID.h"
 #include "Pin_Assignments.h"
+#include "stdlib.h"
 
 #define MAX_SPEED 240
+
+int enA = 3;
+int enB = 8;
+
+int in1 = 4;
+int in2 = 5;
+int in3 = 7;
+int in4 = 8;
+
+int prev_time = 0;
+float prev_error_angle = 0; 
+
+    
+//PID Constants
+float kP = 1;
+float kI = 1;
+float kD = 1;
 
 void motorSetup()
 {
@@ -34,16 +53,6 @@ void motorSetup()
     digitalWrite(in4, LOW);
 }
 
-void PIDsetup(){
-    int prev_time = 0;
-    float prev_error_angle = 0; 
-    
-    //PID Constants
-    float kP = 1.0;
-    float kI = 1.0;
-    float kD = 1.0;
-}
-
 void motorController(float error_angle)
 {
     //elaspsed time between PID loops
@@ -61,29 +70,39 @@ void motorController(float error_angle)
     //Two cases needed for forward movement and reverse movement
     if (error_angle > 0)
     {
-        motorForward();
+        motorReverse();
     }
     else
     {
-        motorReverse();
+        motorForward();
     }
 
     //P:instanteneousError
     float p_error_speed = error_angle * kP;
-
+    Serial.print("P Error: ");
+    Serial.println(p_error_speed);
+    
     //D:rateOFError
     float d_error_speed = (diff_error_angle)/elapsed_time*kD;
+    Serial.print("D Error: ");
+    Serial.println(d_error_speed);
+    
 
     //I:cumulativeError
     float i_error_speed = i_error_speed + (error_angle*elapsed_time)*kI;
-
+    Serial.print("P Error: ");
+    Serial.println(i_error_speed);
+    
     float error_speed =  p_error_speed + d_error_speed + i_error_speed;
-
+    Serial.print("Error Speed: ");
+    Serial.println(error_speed);
     set_motor_speed(error_speed);
+
 
 }
 
 void motorForward(){
+  Serial.println("Forward - ");
   digitalWrite(in1,HIGH);
   digitalWrite(in2,LOW);
   digitalWrite(in3,HIGH);
@@ -91,6 +110,7 @@ void motorForward(){
 }
 
 void motorReverse(){
+  Serial.println("Backward - ");
   digitalWrite(in1,LOW);
   digitalWrite(in2,HIGH);
   digitalWrite(in3,LOW);
@@ -99,14 +119,15 @@ void motorReverse(){
 
 void set_motor_speed(float error_speed){
   
-  int set_speed = 0
-  
-  if(abs(error_speed) > MAX_SPEED){
-    set_speed = MAX_SPEED;
-  }else{
-    set_speed = (int) abs(error_speed);
-  }
+  int set_speed = 0;
+  Serial.print("ABS: ");
+  Serial.println(abs(error_speed));
+  int abs_error = abs(error_speed);
 
+  set_speed = abs_error < MAX_SPEED ? abs_error : MAX_SPEED;
+  
+  Serial.print("Motor Speed: ");
+  Serial.println(set_speed);
   analogWrite(enA,set_speed);
   analogWrite(enB,set_speed);
 }

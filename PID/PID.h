@@ -13,13 +13,10 @@ Purpose: *Initializes balance bot with a taget vertical position, and then the b
 #define _MOTORCONTROLLER_H
 
 //Function declarations
-void motorController();
-void motorSetup(float error_angle);
+void motorController(float error_angle);
+void motorSetup();
 void motorForward();
 void motorReverse();
 void set_motor_speed(float error_speed);
-void PIDsetup();
-
-
 
 #endif
