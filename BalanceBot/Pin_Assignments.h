@@ -24,13 +24,12 @@
  
  
  //Motor Pins:
- #define RIGHT_MOTOR_A //pin value
- #define RIGHT_MOTOR_B //pin value
- #define RIGHT_MOTOR_ENABLE //pin value
-
- #define LEFT_MOTOR_A //pin value
- #define LEFT_MOTOR_B //pin value
- #define LEFT_MOTOR_ENABLE //pin value
+ #define RIGHT_MOTOR_A 4
+ #define RIGHT_MOTOR_B 5
+ #define RIGHT_MOTOR_ENABLE 3
+ #define LEFT_MOTOR_A 7
+ #define LEFT_MOTOR_B 8
+ #define LEFT_MOTOR_ENABLE 9
 
 
 #endif
