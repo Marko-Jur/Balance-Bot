@@ -72,7 +72,6 @@ void displayCalStatus(void)
 
 void gyroscopeSetup(void)
 {
-  Serial.println("Orientation Sensor Test"); Serial.println("");
 
   /* Initialise the sensor */
   if(!bno.begin())
@@ -115,5 +114,5 @@ float getGyroAngle(void)
 
   /* New line for the next sample */
   Serial.println("");
-  return event.orientation.y;
+  return event.orientation.z;
 }

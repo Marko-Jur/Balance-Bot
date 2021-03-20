@@ -13,10 +13,9 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  error_angle = getGyroAngle();
+  error_angle = getGyroAngle() - 19.0;
   Serial.print("Error: ");
   Serial.println(error_angle);
   motorController(error_angle);
   Serial.println();
-  delay(200);
 }
