@@ -12,6 +12,7 @@ double sensorOutput = 0;
 double pidOutput = 0;
 
 MotorController motor_controller;
+                                                                //kp,ki,kd
 BalancePID pid = BalancePID(&sensorOutput, &pidOutput, &setPoint, 1, 0, 1);
 Adafruit_BNO055 bno = Adafruit_BNO055(01, 0x28);
 
