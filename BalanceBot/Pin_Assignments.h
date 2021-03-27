@@ -8,13 +8,14 @@
 #ifndef _PINASSIGNMENTS_H    
 #define _PINASSIGNMENTS_H    
 
- //Gyroscope Assignments:
- 
- //need to figure out gyroscope pin assignments
-
+ //Gyroscope Assignments (already handled in code):
+ // A4 -> SDA
+ // A5 -> SCL
+ // 5V -> Vin
+ // GND -> GND
  
  //NRF24L01 Assignments:
-//Vin 3.3V
+ //Vin 3.3V
  //GND Ground
  //MOSI 11
  //MISO 12
