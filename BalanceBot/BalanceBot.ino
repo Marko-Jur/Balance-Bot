@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "MotorController.h"
+#include "BidirectionalCom.h"
 #include "PID.h"
 #include "Pin_Assignments.h"
 #include <Wire.h>
@@ -12,22 +13,30 @@ double sensorOutput = 0;
 double pidOutput = 0;
 
 MotorController motor_controller;
-                                                                //kp,ki,kd
+//kp,ki,kd
 BalancePID pid = BalancePID(&sensorOutput, &pidOutput, &setPoint, 1, 0, 1);
 Adafruit_BNO055 bno = Adafruit_BNO055(01, 0x28);
 
-void setup() {
+BidirectionalCom bidirectional_com;
+
+void setup()
+{
   Serial.begin(115200);
   Serial.println("HELLO WORLD!");
-  if (!bno.begin()) {
+  if (!bno.begin())
+  {
     Serial.println("BNO FAILED!");
-    while(1);
+    while (1)
+      ;
   }
   delay(1000);
   bno.setExtCrystalUse(true);
+  
+  bidirectional_com.BidirectionalCom::Setup();
 }
 
-void loop() {
+void loop()
+{
   sensors_event_t event;
   bno.getEvent(&event);
   Serial.print("BNO Output: ");
@@ -37,3 +46,4 @@ void loop() {
   motor_controller.output((float)pidOutput);
   delay(100);
 }
+
