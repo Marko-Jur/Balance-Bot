@@ -22,7 +22,7 @@ class BalancePID : public PID
 {
 private: 
 	double m_kp, m_ki, m_kd;
-	int m_sampleTime = 100;
+	int m_sampleTime = 10;
 	double *m_sensorOutput;
 	double *m_pidOutput;
 	double *m_setpoint;

@@ -28,17 +28,16 @@ void BalancePID::setTunings(double kp, double ki, double kd)
 void BalancePID::Compute()
 {
 	long time_delta = millis() - m_last_time;
+  Serial.println(time_delta);
 	if (time_delta <= m_sampleTime)
 		return;
 	m_last_time = millis();
 	double error_angle = *m_sensorOutput - *m_setpoint;
 	double p_term = error_angle * m_kp;
 	i_sum = i_sum + (error_angle * m_ki);
-	i_sum = (i_sum < 0) ? -(min(200.0, abs(i_sum))) : (min(200.0, abs(i_sum)));
-	double d_term = (error_angle - m_last_error)/((double)time_delta);
+	i_sum = (i_sum < 0) ? -(min(256.0, abs(i_sum))) : (min(256.0, abs(i_sum)));
+	double d_term = (error_angle - m_last_error)/((double)(time_delta)) * m_kd;
+  m_last_error = error_angle;
 	double output = p_term + i_sum + d_term;
-	*m_pidOutput = (output < 0) ? -(min(200.0, abs(output))) : (min(200.0, abs(output)));
-	Serial.print("PID Output: ");
-	Serial.println(*m_pidOutput);
+	*m_pidOutput = (output < 0) ? -(min(256.0, abs(output))) : (min(256.0, abs(output)));
 }
-

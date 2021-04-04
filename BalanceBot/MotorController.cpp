@@ -24,7 +24,7 @@ MotorController::~MotorController()
 
 void MotorController::setMotorSpeed(float outputSpeed) {
     int set_speed = 0;
-    int abs_error = abs(outputSpeed);
+    int abs_error = abs(outputSpeed) + 20;
     set_speed = min(MAX_SPEED, abs_error);
     analogWrite(m_enA, set_speed);
     analogWrite(m_enB, set_speed);
@@ -34,17 +34,14 @@ void MotorController::output(float outputValue)
 {
     
     setMotorSpeed(outputValue);
+    
     if (outputValue > 0) {
         motorForward();
-        Serial.print("Moving Forward: ");
-        
     }
     else
     {
         motorReverse();
-        Serial.print("Moving Backward: ");
     }
-    Serial.println(outputValue);
 }
 
 void MotorController::motorForward()
