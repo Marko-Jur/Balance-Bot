@@ -1,0 +1,34 @@
+Wall-E GUI Communication Protocol
+
+Format:
+    Values are sent from Arduino in a string with comma (,) delimiters and terminated by \n.
+        ex. "0,1,123,31,12\n"
+    Values are sent TO Arduino in a string with comma (,) delimiters and with start (<) and end (>) markers
+
+Abstraction Function:
+    - Strings to UI will contain values in the following order:
+        1. Landing Status
+            0 - On Aircraft
+            1 - Deploying
+            2 - Landed
+        2. Altitude (m)
+        3. Current Latitude (Decimal Degrees)	// Use - instead of NESW
+        4. Current Longitude
+        5. Distance (m)
+        6. Heading (Degrees)
+        7. Speed (m/s)
+        8. Fix
+        9. # of Satellites
+        10. P Value
+        11. I Value
+        12. D Value
+
+    - Strings sent FROM UI will contain values in the following order:
+
+        // Old values will be sent if user does not want to change values
+
+        1. Target Latitude (Decimal Degrees)
+        2. Target Longitude
+        3. P Value
+        4. I Value
+        5. D Value
