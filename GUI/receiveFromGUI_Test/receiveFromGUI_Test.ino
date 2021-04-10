@@ -20,11 +20,11 @@ void loop() {
       incomingData = "";
     } else if (incomingChar == endMarker) {
       shouldRead = false;
-      Serial.println(incomingData);
+      // incomingData looks like "##,##,##,##,##"
+      Serial.println(incomingData);     // This line should be parsed into a char array
       incomingData = "";
     } else if (shouldRead) {
       incomingData += String(incomingChar);
     }
-    // incomingData is string: "##,##,##,##,##"
   }
 }
