@@ -2,7 +2,6 @@ import serial
 import time
 
 isConnected = False
-newDataReceived = False
 startMarker = "<"
 endMarker = ">"
 updateInterval = 0.5
@@ -43,12 +42,12 @@ class dataTransfer:
         self.DValue = 0
 
     def updateValues(self):
-        global newDataReceived
         newDataReceived = False
         while isConnected and not newDataReceived:
-            while ser.in_waiting > 0:
+            while isConnected and ser.in_waiting > 0:
                 try:
                     recString = ser.readline()
+                    # print(recString)
                     decryptedStr = decrypt(recString)
                     values = decryptedStr.split(",")
                     if len(values) == 12:
