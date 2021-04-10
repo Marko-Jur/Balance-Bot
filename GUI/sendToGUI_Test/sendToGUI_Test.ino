@@ -5,7 +5,7 @@ void setup() {
 }
 
 int count = 0;
-int periodBetUpdate = 3000;
+int periodBetUpdate = 500;
 
 void loop() {
   // Send bot values to serial monitor at regular rate

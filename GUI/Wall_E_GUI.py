@@ -56,7 +56,6 @@ DValue = DoubleVar()
 DValue.set(0)
 
 def updateVariables():
-    global altitude
     while comms.isConnected:
         newValues = comms.data
         newValues.updateValues()
@@ -79,16 +78,6 @@ def updateVariables():
         DValue.set(newValues.DValue)
         time.sleep(comms.updateInterval)
 
-updateThread = threading.Thread(target=updateVariables)
-
-# def reportToConsole():
-#     while comms.isConnected:
-#         if comms.ser.in_waiting > 0:
-#             message = comms.ser.readline()
-#             print(comms.decrypt(message))
-
-# updateThread = threading.Thread(target=reportToConsole)
-
 def connectSerial():
     global connectedButton
     global updateThread
@@ -101,6 +90,7 @@ def connectSerial():
         connectedButton = Button(roverStatusFrame, text="Disconnect from Serial", bg="#50e673", font=("Arial", "10"), width=18, command=disconnectSerial)
         connectedButton.grid(row=1, column=0, padx=8, pady=8, sticky=W)
         connected.set("Connected")
+        updateThread = threading.Thread(target=updateVariables)
         updateThread.start()
 
 def disconnectSerial():
@@ -114,7 +104,6 @@ def disconnectSerial():
         connectedButton.grid(row=1, column=0, padx=8, pady=8, sticky=W)
         connected.set("Not Connected")
         updateThread.join()
-        updateThread = threading.Thread(target=updateVariables)
 
 
 ## Widget Creation
