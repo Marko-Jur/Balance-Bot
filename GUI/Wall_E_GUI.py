@@ -147,7 +147,7 @@ targetLonLabel = Label(roverStatusFrame, text="Target Longitude", bg="white", fo
 targetLonVal = Label(roverStatusFrame, textvariable=targetLon, bg="white", font=("Arial", "12"), padx=5, pady=2, width=10, height=1, anchor=W, relief=SUNKEN)
 targetLonUnits = Label(roverStatusFrame, text="\N{DEGREE SIGN}", bg="white", font=("Arial", "12"))
 
-distanceLabel = Label(roverStatusFrame, text="Distance", bg="white", font=("Arial", "12"))
+distanceLabel = Label(roverStatusFrame, text="Target Distance", bg="white", font=("Arial", "12"))
 distanceVal = Label(roverStatusFrame, textvariable=distance, bg="white", font=("Arial", "12"), padx=5, pady=2, width=10, height=1, anchor=W, relief=SUNKEN)
 distanceUnits = Label(roverStatusFrame, text="m", bg="white", font=("Arial", "12"))
 
